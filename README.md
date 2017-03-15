@@ -5,14 +5,32 @@
 This repository contains a codemod script for fixing ordering of ES6 class members defined when using the [eslint-plugin-sort-class-members](https://github.com/bryanrsmith/eslint-plugin-sort-class-members) plugin. 
 
 
-### Setup & Run
+### Setup
 
   * Install [`jscodeshift`](https://github.com/facebook/jscodeshift) globally (or as a local dependency if you like)
-   `npm install -g jscodeshift`
-  * Install the codemod `yarn add --dev sort-class-members-codemod`
-  * `jscodeshift -t node_modules/sort-class-members-codemod/index <path-of-file-to-fix>`
-  * You can also use the `-d` option for a dry-run and `-p` to print the output
-    for comparison
+   
+      ```bash
+       npm install -g jscodeshift
+      ```
+  * Install the codemod 
+ 
+     ```bash
+    yarn add --dev sort-class-members-codemod
+    ```
+
+## Running
+```bash
+jscodeshift -t node_modules/sort-class-members-codemod/index <path-of-file-to-fix>
+```
+
+### Additional flags:
+
+| Flag  | What it does  |
+|---|---
+| ` -d`  | Dry run codemods. Don't make any changes  |
+| `-p`   | Print the output to stdout  |
+| `--reactOnly`  | Only fix sorting errors in React Component `classes`  |
+  
 
 ### TODO
 - [ ] Fix ordering of `accessorPairs`
