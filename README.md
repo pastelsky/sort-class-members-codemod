@@ -20,7 +20,7 @@ This repository contains a codemod script for fixing ordering of ES6 class membe
 
 ## Running
 ```bash
-jscodeshift -t node_modules/sort-class-members-codemod/index <path-of-file-to-fix>
+jscodeshift -t node_modules/sort-class-members-codemod/index.js <path-of-file-to-fix>
 ```
 
 ### Additional flags:
