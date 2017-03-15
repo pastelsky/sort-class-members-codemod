@@ -1,6 +1,6 @@
 {
   "name": "sort-class-members-codemod",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A codemod for automatically fixing issues reported by eslint-plugin-sort-class-members",
   "main": "index.js",
   "repository": "https://github.com/pastelsky/sort-class-members-codemod",
