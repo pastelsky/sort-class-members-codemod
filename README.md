@@ -1,4 +1,6 @@
 # sort-class-members-codemod 
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/pastelsky/sort-class-members-codemod.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/pastelsky/sort-class-members-codemod.svg)](https://travis-ci.org/pastelsky/sort-class-members-codemod) [![npm (scoped)](https://img.shields.io/npm/v/sort-class-members-codemod.svg)](https://www.npmjs.com/package/sort-class-members-codemod)
 [![npm](https://img.shields.io/npm/l/sort-class-members-codemod.svg)](https://www.npmjs.com/package/sort-class-members-codemod)
 
