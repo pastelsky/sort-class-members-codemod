@@ -5,6 +5,10 @@ class Pizza {
     return 'Everybody'
   }
 
+  slicesCount = 5
+
+  _ingredients = ['cheese']
+
   constructor() {
     this._ingredients = ['cheese']
   }
