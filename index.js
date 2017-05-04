@@ -101,47 +101,61 @@ function getMemberInfo(node) {
   }
 }
 
-function scoreMember(node, expectedOrder) {
-  let score = 0
-  let isScored = false
-  expectedOrder.forEach((group, index) => {
-    let matches = true
-    if (isScored) {
-      return
-    }
-    if (Object.keys(group).length === 0) {
-      matches = false
-      score = index
-    }
+function getTestNamesListByProps (classifiedProps, memberInfo, expectedOrder) {
+  return expectedOrder
+    .filter((order) => classifiedProps.reduce((acc, prop) => order[prop] === memberInfo[prop] && acc, true))
+    .map((order) => order.name)
+    .filter((name) => name)
+    .map((name) => getNameComparer(name))
+}
 
-    const memberInfo = getMemberInfo(node)
-    if ('kind' in group && !(memberInfo.kind === group.kind)) {
-      matches = false
-    }
+function checkGroup (memberInfo, group, expectedOrder) {
+  if (!Object.keys(group)) {
+    return false
+  }
 
-    if ('static' in group && !(memberInfo.static === group.static)) {
-      matches = false
-    }
+  const classifiedProps = []
+  let matches = true
 
-    if ('type' in group && !(memberInfo.type === group.type)) {
-      matches = false
-    }
+  Object.keys(memberInfo).forEach((property) => {
+    matches = [ 'type', 'kind', 'static', 'propertyType' ].reduce((result, property) => {
+      if (group[property]) {
+        const matches = memberInfo[property] === group[property]
 
-    if (group.type === 'property' && 'propertyType' in group && !(group.propertyType === memberInfo.propertyType)) {
-      matches = false
-    }
+        if (matches) {
+          classifiedProps.push(property)
+        }
 
-    if ('name' in group) {
-      matches = getNameComparer(group.name)(memberInfo.name)
-    }
+        return matches && result
+      }
 
-    if (matches) {
-      isScored = true
-      score = index
+      return result
+    }, matches)
+
+    if (property === 'name' && group.name) {
+      matches = getNameComparer(group.name)(memberInfo.name) && matches
+    } else if (!group.name) {
+      const testNames = getTestNamesListByProps(classifiedProps, memberInfo, expectedOrder)
+
+      if (testNames.length) {
+        matches = !testNames.some((testName) => testName(memberInfo.name)) && matches
+      }
     }
   })
 
-  return score
+  return matches
+}
+
+function scoreMember (node, expectedOrder) {
+  const memberInfo = getMemberInfo(node)
+
+  for (let index = 0; index < expectedOrder.length; index++) {
+    if (checkGroup(memberInfo, expectedOrder[index], expectedOrder)) {
+      return index
+    }
+  }
+
+  return Number.MAX_SAFE_INTEGER
 }
 
 const builtInGroups = {

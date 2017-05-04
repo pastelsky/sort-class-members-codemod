@@ -10,6 +10,8 @@ class Pizza {
 
   static sizes = ['7″', '10″']
 
+  _ingredients = ['cheese']
+
   static whoLovesPizzas() {
     return 'Everybody'
   }
@@ -17,4 +19,6 @@ class Pizza {
   constructor() {
     this._ingredients = ['cheese']
   }
+
+  slicesCount = 5
 }
