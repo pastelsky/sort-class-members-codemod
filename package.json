@@ -10,7 +10,7 @@
     "./index.js"
   ],
   "dependencies": {
-    "eslint": "^3.17.1",
+    "eslint": "^5.0.1",
     "react-codemod": "^4.0.0"
   },
   "devDependencies": {
